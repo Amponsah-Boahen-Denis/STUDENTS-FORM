@@ -317,6 +317,7 @@
 document.getElementById('admissionForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
+    // Collect form data
     const date = document.getElementById('date').value || '';
     const courseName = document.getElementById('courseName').value || '';
     const courseDuration = document.querySelector('input[name="courseDuration"]:checked')?.value || '';
@@ -365,11 +366,11 @@ document.getElementById('admissionForm').addEventListener('submit', function(eve
     const doc = new jsPDF();
 
     if (photoFile) {
-        // Read the image file and add it to the PDF at the top
+        // Read the image file and add it to the PDF beside the title
         const reader = new FileReader();
         reader.onload = function(e) {
             const imgData = e.target.result;
-            doc.addImage(imgData, 'JPEG', 10, 10, 40, 40); // Place photo at the top-left corner
+            doc.addImage(imgData, 'JPEG', 10, 30, 30, 30); // Adjusted placement of photo
             generatePDF(); // Move on to generating the rest of the PDF
         };
         reader.readAsDataURL(photoFile);
@@ -378,20 +379,20 @@ document.getElementById('admissionForm').addEventListener('submit', function(eve
     }
 
     function generatePDF() {
-        // Title and headers with box and color, adjusted placement below the image
+        // Title and headers with box and color, adjusted placement beside the image
         doc.setFillColor(192, 192, 192);  // Light grey background for header
-        doc.rect(10, 60, 190, 20, 'F');  // Rectangular box for title, moved down to avoid the image
+        doc.rect(45, 30, 155, 30, 'F');  // Rectangular box for title beside the image
         doc.setFontSize(18);
         doc.setTextColor(0, 0, 128);  // Blue text color
-        doc.text('FUTURE GOAL ACADEMY', 105, 70, { align: 'center' });
-        doc.text('Admission Form', 105, 80, { align: 'center' });
+        doc.text('FUTURE GOAL ACADEMY', 120, 40, { align: 'center' });
+        doc.text('Admission Form', 120, 50, { align: 'center' });
 
         // Form sections and fields
         doc.setFontSize(12);
         doc.setTextColor(0, 0, 0);  // Reset to black text
 
         // Adjust the starting y-position to be below the title and image
-        const startingY = 90;
+        const startingY = 70;  // Adjusted top space
 
         // Date and Course
         drawFieldBox(doc, 'Date:', date, 10, startingY, 90);
@@ -399,12 +400,12 @@ document.getElementById('admissionForm').addEventListener('submit', function(eve
         drawFieldBox(doc, 'Course Duration:', courseDuration, 10, startingY + 10, 90);
 
         // Applicant Details
-        drawFieldBox(doc, 'Applicant Name (Bangla):', applicantNameBangla, 10, startingY + 20, 90);
-        drawFieldBox(doc, 'Applicant Name (Capital):', applicantNameCapital, 110, startingY + 20, 90);
+        drawFieldBox(doc, 'Applicant Name(Bang.):', applicantNameBangla, 10, startingY + 20, 90);
+        drawFieldBox(doc, 'Applicant Name(Capit.):', applicantNameCapital, 110, startingY + 20, 90);
         drawFieldBox(doc, 'Father\'s Name:', fatherName, 10, startingY + 30, 90);
-        drawFieldBox(doc, 'Father\'s Name (Capital):', fatherNameCapital, 110, startingY + 30, 90);
+        drawFieldBox(doc, 'Father\'s Name(Capit.):', fatherNameCapital, 110, startingY + 30, 90);
         drawFieldBox(doc, 'Mother\'s Name:', motherName, 10, startingY + 40, 90);
-        drawFieldBox(doc, 'Mother\'s Name (Capital):', motherNameCapital, 110, startingY + 40, 90);
+        drawFieldBox(doc, 'Mother\'s Name(Capit.):', motherNameCapital, 110, startingY + 40, 90);
 
         // Addresses
         drawFieldBox(doc, 'Permanent Address:', addressPermanent, 10, startingY + 50, 190);
@@ -453,11 +454,10 @@ document.getElementById('admissionForm').addEventListener('submit', function(eve
         doc.setFontSize(10);
         doc.setDrawColor(0, 0, 0);  // Black border color
         doc.rect(x, y, width, 8);   // Draw the box
-        doc.text(label, x + 2, y + 6);  // Field label
-        doc.text(value, x + (width / 2), y + 6, { align: 'center' });  // Field value
+        doc.text(label, x + 2, y + 5);  // Add the label
+        doc.text(value, x + 40, y + 5);  // Add the value
     }
 });
-
 
 // document.getElementById('admissionForm').addEventListener('submit', function(event) {
 //     event.preventDefault();

@@ -338,11 +338,7 @@ document.getElementById('admissionForm').addEventListener('submit', function(eve
     const po = document.getElementById('po').value || '';
     const upazilla = document.getElementById('upazilla').value || '';
     const district = document.getElementById('district').value || '';
-    const nationality = document.getElementById('nationality').value || '';
-
-    // Signatures are now static lines
-    const guardianSignature = ''; // Static line on the PDF
-    const applicantSignature = ''; // Static line on the PDF
+    const nationality = document.getElementById('nationality').value || 'Bangladesh';
 
     const examination1 = document.getElementById('examination1').value || '';
     const board1 = document.getElementById('board1').value || '';
@@ -369,12 +365,12 @@ document.getElementById('admissionForm').addEventListener('submit', function(eve
     const doc = new jsPDF();
 
     if (photoFile) {
-        // Read the image file and add it to the top of the PDF
+        // Read the image file and add it to the PDF at the top
         const reader = new FileReader();
         reader.onload = function(e) {
             const imgData = e.target.result;
-            doc.addImage(imgData, 'JPEG', 10, 10, 30, 30); // Reduce photo size
-            generatePDF();
+            doc.addImage(imgData, 'JPEG', 10, 10, 40, 40); // Place photo at the top-left corner
+            generatePDF(); // Move on to generating the rest of the PDF
         };
         reader.readAsDataURL(photoFile);
     } else {
@@ -382,60 +378,209 @@ document.getElementById('admissionForm').addEventListener('submit', function(eve
     }
 
     function generatePDF() {
-        doc.setFontSize(11); // Reduce font size
-        doc.text('FUTURE GOAL ACADEMY', 10, 50);
-        doc.setFontSize(8);
-        doc.text('Admission Form', 10, 60);
+        // Title and headers with box and color, adjusted placement below the image
+        doc.setFillColor(192, 192, 192);  // Light grey background for header
+        doc.rect(10, 60, 190, 20, 'F');  // Rectangular box for title, moved down to avoid the image
+        doc.setFontSize(18);
+        doc.setTextColor(0, 0, 128);  // Blue text color
+        doc.text('FUTURE GOAL ACADEMY', 105, 70, { align: 'center' });
+        doc.text('Admission Form', 105, 80, { align: 'center' });
 
-        doc.setFontSize(8);
-        const lineHeight = 10; // Adjust line height
-        let y = 70;
-        doc.text(`Date: ${date}`, 10, y); y += lineHeight;
-        doc.text(`Course Name: ${courseName}`, 10, y); y += lineHeight;
-        doc.text(`Course Duration: ${courseDuration}`, 10, y); y += lineHeight;
-        doc.text(`Applicant Name (Bangla): ${applicantNameBangla}`, 10, y); y += lineHeight;
-        doc.text(`Applicant Name (Capital Letter): ${applicantNameCapital}`, 10, y); y += lineHeight;
-        doc.text(`Father’s Name: ${fatherName}`, 10, y); y += lineHeight;
-        doc.text(`Father’s Name (Capital Letter): ${fatherNameCapital}`, 10, y); y += lineHeight;
-        doc.text(`Mother’s Name: ${motherName}`, 10, y); y += lineHeight;
-        doc.text(`Mother’s Name (Capital Letter): ${motherNameCapital}`, 10, y); y += lineHeight;
-        doc.text(`Address (Permanent): ${addressPermanent}`, 10, y); y += lineHeight;
-        doc.text(`Address (Present): ${addressPresent}`, 10, y); y += lineHeight;
-        doc.text(`Date of Birth: ${dob}`, 10, y); y += lineHeight;
-        doc.text(`Religion: ${religion}`, 10, y); y += lineHeight;
-        doc.text(`Profession: ${profession}`, 10, y); y += lineHeight;
-        doc.text(`Mobile: ${mobile}`, 10, y); y += lineHeight;
-        doc.text(`Email: ${email}`, 10, y); y += lineHeight;
-        doc.text(`Alt. Mobile: ${altMobile}`, 10, y); y += lineHeight;
-        doc.text(`Village: ${village}`, 10, y); y += lineHeight;
-        doc.text(`P/O: ${po}`, 10, y); y += lineHeight;
-        doc.text(`Upazilla: ${upazilla}`, 10, y); y += lineHeight;
-        doc.text(`District: ${district}`, 10, y); y += lineHeight;
-        doc.text(`Nationality: ${nationality}`, 10, y); y += lineHeight;
+        // Form sections and fields
+        doc.setFontSize(12);
+        doc.setTextColor(0, 0, 0);  // Reset to black text
 
-        // Add static lines for signatures
-        doc.text('Guardian Signature:_______________', 10, y); y += lineHeight;
-        doc.line(10, y, 100, y); y += lineHeight;
-        doc.text('Applicant Signature:______________', 10, y); y += lineHeight;
-        doc.line(10, y, 100, y); y += lineHeight;
+        // Adjust the starting y-position to be below the title and image
+        const startingY = 90;
 
-        // Add Educational Qualification Table
-        doc.text('Educational Qualification:', 10, y);
-        y += lineHeight;
+        // Date and Course
+        drawFieldBox(doc, 'Date:', date, 10, startingY, 90);
+        drawFieldBox(doc, 'Course Name:', courseName, 110, startingY, 90);
+        drawFieldBox(doc, 'Course Duration:', courseDuration, 10, startingY + 10, 90);
+
+        // Applicant Details
+        drawFieldBox(doc, 'Applicant Name (Bangla):', applicantNameBangla, 10, startingY + 20, 90);
+        drawFieldBox(doc, 'Applicant Name (Capital):', applicantNameCapital, 110, startingY + 20, 90);
+        drawFieldBox(doc, 'Father\'s Name:', fatherName, 10, startingY + 30, 90);
+        drawFieldBox(doc, 'Father\'s Name (Capital):', fatherNameCapital, 110, startingY + 30, 90);
+        drawFieldBox(doc, 'Mother\'s Name:', motherName, 10, startingY + 40, 90);
+        drawFieldBox(doc, 'Mother\'s Name (Capital):', motherNameCapital, 110, startingY + 40, 90);
+
+        // Addresses
+        drawFieldBox(doc, 'Permanent Address:', addressPermanent, 10, startingY + 50, 190);
+        drawFieldBox(doc, 'Present Address:', addressPresent, 10, startingY + 60, 190);
+
+        // Additional Information
+        drawFieldBox(doc, 'Date of Birth:', dob, 10, startingY + 70, 90);
+        drawFieldBox(doc, 'Religion:', religion, 110, startingY + 70, 90);
+        drawFieldBox(doc, 'Profession:', profession, 10, startingY + 80, 90);
+        drawFieldBox(doc, 'Mobile:', mobile, 110, startingY + 80, 90);
+        drawFieldBox(doc, 'Email:', email, 10, startingY + 90, 90);
+        drawFieldBox(doc, 'Alt Mobile:', altMobile, 110, startingY + 90, 90);
+        drawFieldBox(doc, 'Village:', village, 10, startingY + 100, 90);
+        drawFieldBox(doc, 'P/O:', po, 110, startingY + 100, 90);
+        drawFieldBox(doc, 'Upazilla:', upazilla, 10, startingY + 110, 90);
+        drawFieldBox(doc, 'District:', district, 110, startingY + 110, 90);
+        drawFieldBox(doc, 'Nationality:', nationality, 10, startingY + 120, 90);
+
+        // Educational Qualification Section
+        doc.setFontSize(10);
         doc.autoTable({
-            startY: y,
-            margin: { left: 10, right: 10 },
             head: [['Examination', 'Board', 'Subject', 'Grade', 'Year']],
             body: [
                 [examination1, board1, subject1, grade1, year1],
                 [examination2, board2, subject2, grade2, year2],
-                [examination3, board3, subject3, grade3, year3],
-            ]
+                [examination3, board3, subject3, grade3, year3]
+            ],
+            startY: startingY + 130,
+            theme: 'grid'
         });
 
+        // Signature Section
+        doc.setFontSize(12);
+        doc.text('Guardian Signature:', 10, doc.lastAutoTable.finalY + 20);
+        doc.line(60, doc.lastAutoTable.finalY + 20, 150, doc.lastAutoTable.finalY + 20); // Signature Line
+
+        doc.text('Applicant Signature:', 10, doc.lastAutoTable.finalY + 40);
+        doc.line(60, doc.lastAutoTable.finalY + 40, 150, doc.lastAutoTable.finalY + 40); // Signature Line
+
+        // Save the PDF
         doc.save('admission_form.pdf');
     }
+
+    // Function to draw a labeled field with a box around it
+    function drawFieldBox(doc, label, value, x, y, width) {
+        doc.setFontSize(10);
+        doc.setDrawColor(0, 0, 0);  // Black border color
+        doc.rect(x, y, width, 8);   // Draw the box
+        doc.text(label, x + 2, y + 6);  // Field label
+        doc.text(value, x + (width / 2), y + 6, { align: 'center' });  // Field value
+    }
 });
+
+
+// document.getElementById('admissionForm').addEventListener('submit', function(event) {
+//     event.preventDefault();
+
+//     const date = document.getElementById('date').value || '';
+//     const courseName = document.getElementById('courseName').value || '';
+//     const courseDuration = document.querySelector('input[name="courseDuration"]:checked')?.value || '';
+//     const applicantNameBangla = document.getElementById('applicantNameBangla').value || '';
+//     const applicantNameCapital = document.getElementById('applicantNameCapital').value || '';
+//     const fatherName = document.getElementById('fatherName').value || '';
+//     const fatherNameCapital = document.getElementById('fatherNameCapital').value || '';
+//     const motherName = document.getElementById('motherName').value || '';
+//     const motherNameCapital = document.getElementById('motherNameCapital').value || '';
+//     const addressPermanent = document.getElementById('addressPermanent').value || '';
+//     const addressPresent = document.getElementById('addressPresent').value || '';
+//     const dob = document.getElementById('dob').value || '';
+//     const religion = document.getElementById('religion').value || '';
+//     const profession = document.getElementById('profession').value || '';
+//     const mobile = document.getElementById('mobile').value || '';
+//     const email = document.getElementById('email').value || '';
+//     const altMobile = document.getElementById('altMobile').value || '';
+//     const village = document.getElementById('village').value || '';
+//     const po = document.getElementById('po').value || '';
+//     const upazilla = document.getElementById('upazilla').value || '';
+//     const district = document.getElementById('district').value || '';
+//     const nationality = document.getElementById('nationality').value || '';
+
+//     // Signatures are now static lines
+//     const guardianSignature = ''; // Static line on the PDF
+//     const applicantSignature = ''; // Static line on the PDF
+
+//     const examination1 = document.getElementById('examination1').value || '';
+//     const board1 = document.getElementById('board1').value || '';
+//     const subject1 = document.getElementById('subject1').value || '';
+//     const grade1 = document.getElementById('grade1').value || '';
+//     const year1 = document.getElementById('year1').value || '';
+
+//     const examination2 = document.getElementById('examination2').value || '';
+//     const board2 = document.getElementById('board2').value || '';
+//     const subject2 = document.getElementById('subject2').value || '';
+//     const grade2 = document.getElementById('grade2').value || '';
+//     const year2 = document.getElementById('year2').value || '';
+
+//     const examination3 = document.getElementById('examination3').value || '';
+//     const board3 = document.getElementById('board3').value || '';
+//     const subject3 = document.getElementById('subject3').value || '';
+//     const grade3 = document.getElementById('grade3').value || '';
+//     const year3 = document.getElementById('year3').value || '';
+
+//     const photoInput = document.getElementById('photo');
+//     const photoFile = photoInput ? photoInput.files[0] : null;
+
+//     const { jsPDF } = window.jspdf;
+//     const doc = new jsPDF();
+
+//     if (photoFile) {
+//         // Read the image file and add it to the top of the PDF
+//         const reader = new FileReader();
+//         reader.onload = function(e) {
+//             const imgData = e.target.result;
+//             doc.addImage(imgData, 'JPEG', 10, 10, 30, 30); // Reduce photo size
+//             generatePDF();
+//         };
+//         reader.readAsDataURL(photoFile);
+//     } else {
+//         generatePDF();
+//     }
+
+//     function generatePDF() {
+//         doc.setFontSize(11); // Reduce font size
+//         doc.text('FUTURE GOAL ACADEMY', 10, 50);
+//         doc.setFontSize(8);
+//         doc.text('Admission Form', 10, 60);
+
+//         doc.setFontSize(8);
+//         const lineHeight = 10; // Adjust line height
+//         let y = 70;
+//         doc.text(`Date: ${date}`, 10, y); y += lineHeight;
+//         doc.text(`Course Name: ${courseName}`, 10, y); y += lineHeight;
+//         doc.text(`Course Duration: ${courseDuration}`, 10, y); y += lineHeight;
+//         doc.text(`Applicant Name (Bangla): ${applicantNameBangla}`, 10, y); y += lineHeight;
+//         doc.text(`Applicant Name (Capital Letter): ${applicantNameCapital}`, 10, y); y += lineHeight;
+//         doc.text(`Father’s Name: ${fatherName}`, 10, y); y += lineHeight;
+//         doc.text(`Father’s Name (Capital Letter): ${fatherNameCapital}`, 10, y); y += lineHeight;
+//         doc.text(`Mother’s Name: ${motherName}`, 10, y); y += lineHeight;
+//         doc.text(`Mother’s Name (Capital Letter): ${motherNameCapital}`, 10, y); y += lineHeight;
+//         doc.text(`Address (Permanent): ${addressPermanent}`, 10, y); y += lineHeight;
+//         doc.text(`Address (Present): ${addressPresent}`, 10, y); y += lineHeight;
+//         doc.text(`Date of Birth: ${dob}`, 10, y); y += lineHeight;
+//         doc.text(`Religion: ${religion}`, 10, y); y += lineHeight;
+//         doc.text(`Profession: ${profession}`, 10, y); y += lineHeight;
+//         doc.text(`Mobile: ${mobile}`, 10, y); y += lineHeight;
+//         doc.text(`Email: ${email}`, 10, y); y += lineHeight;
+//         doc.text(`Alt. Mobile: ${altMobile}`, 10, y); y += lineHeight;
+//         doc.text(`Village: ${village}`, 10, y); y += lineHeight;
+//         doc.text(`P/O: ${po}`, 10, y); y += lineHeight;
+//         doc.text(`Upazilla: ${upazilla}`, 10, y); y += lineHeight;
+//         doc.text(`District: ${district}`, 10, y); y += lineHeight;
+//         doc.text(`Nationality: ${nationality}`, 10, y); y += lineHeight;
+
+//         // Add static lines for signatures
+//         doc.text('Guardian Signature:_______________', 10, y); y += lineHeight;
+//         doc.line(10, y, 100, y); y += lineHeight;
+//         doc.text('Applicant Signature:______________', 10, y); y += lineHeight;
+//         doc.line(10, y, 100, y); y += lineHeight;
+
+//         // Add Educational Qualification Table
+//         doc.text('Educational Qualification:', 10, y);
+//         y += lineHeight;
+//         doc.autoTable({
+//             startY: y,
+//             margin: { left: 10, right: 10 },
+//             head: [['Examination', 'Board', 'Subject', 'Grade', 'Year']],
+//             body: [
+//                 [examination1, board1, subject1, grade1, year1],
+//                 [examination2, board2, subject2, grade2, year2],
+//                 [examination3, board3, subject3, grade3, year3],
+//             ]
+//         });
+
+//         doc.save('admission_form.pdf');
+//     }
+// });
 
 
 </Script>

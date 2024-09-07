@@ -127,11 +127,16 @@
     <h1>FUTURE GOAL ACADEMY</h1>
     <h3>Admission Form</h3>
     <form id="admissionForm">
-        
         <div class="form-section">
             <label for="date">Date:</label>
-            <input type="date" id="date" name="date" required>
+            <input type="date" id="date" name="date" value="2024-09-07" readonly required>
         </div>
+        
+        
+        <!-- <div class="form-section">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+        </div> -->
 
         <div class="form-section">
             <label for="courseName">Course Name:</label>
@@ -144,12 +149,21 @@
         </div>
 
         <div class="form-section">
+            <label for="courseDuration">Course Duration:</label>
+            <select id="courseDuration" name="courseDuration" required>
+                <option value="3 Month">3 Month</option>
+                <option value="6 Month">6 Month</option>
+            </select>
+        </div>
+        
+
+        <!-- <div class="form-section">
             <label>Course Duration:</label>
-            <input type="radio" id="duration3Month" name="courseDuration" value="3 Month" required>
+            <input type="radio" id="duration3Month" name="courseDuration" value="3 Month" required> 
             <label for="duration3Month">3 Month</label>
             <input type="radio" id="duration6Month" name="courseDuration" value="6 Month">
             <label for="duration6Month">6 Month</label>
-        </div>
+        </div> -->
 
         <div class="form-section">
             <label for="applicantNameBangla">Applicant Name (Bangla):</label>
@@ -157,7 +171,7 @@
         </div>
 
         <div class="form-section">
-            <label for="applicantNameCapital">Applicant Name (Capital Letter):</label>
+            <label for="applicantNameCapital">Applicant Name (English):</label>
             <input type="text" id="applicantNameCapital" name="applicantNameCapital" required>
         </div>
 
@@ -167,7 +181,7 @@
         </div>
 
         <div class="form-section">
-            <label for="fatherNameCapital">Father’s Name (Capital Letter):</label>
+            <label for="fatherNameCapital">Father’s Name (English):</label>
             <input type="text" id="fatherNameCapital" name="fatherNameCapital" required>
         </div>
 
@@ -177,11 +191,28 @@
         </div>
 
         <div class="form-section">
-            <label for="motherNameCapital">Mother’s Name (Capital Letter):</label>
+            <label for="motherNameCapital">Mother’s Name (English):</label>
             <input type="text" id="motherNameCapital" name="motherNameCapital" required>
         </div>
 
+
+    
         <div class="form-section">
+            <label for="addressPermanent">Address (Permanent):</label>
+            <textarea id="addressPermanent" name="addressPermanent" rows="2" required oninput="copyAddress()"></textarea>
+        </div>
+        
+        <div class="form-section">
+            <label for="addressPresent">Address (Present):</label>
+            <textarea id="addressPresent" name="addressPresent" rows="2" required onfocus="stopCopying()"></textarea>
+        </div>
+        
+        
+        
+        
+        
+        
+        <!-- <div class="form-section">
             <label for="addressPermanent">Address (Permanent):</label>
             <textarea id="addressPermanent" name="addressPermanent" rows="2" required></textarea>
         </div>
@@ -189,7 +220,7 @@
         <div class="form-section">
             <label for="addressPresent">Address (Present):</label>
             <textarea id="addressPresent" name="addressPresent" rows="2" required></textarea>
-        </div>
+        </div> -->
 
         <div class="form-section">
             <label for="dob">Date of Birth:</label>
@@ -211,8 +242,14 @@
         </div>
 
         <div class="form-section">
-            <label for="mobile">Mobile:</label>
+            <label for="mobile"> Student Mobile:</label>
             <input type="tel" id="mobile" name="mobile" required>
+        </div>
+
+
+        <div class="form-section">
+            <label for="altMobile">Guardian Mobile:</label>
+            <input type="tel" id="altMobile" name="altMobile">
         </div>
 
         <div class="form-section">
@@ -220,10 +257,7 @@
             <input type="email" id="email" name="email" required>
         </div>
 
-        <div class="form-section">
-            <label for="altMobile">Alt. Mobile:</label>
-            <input type="tel" id="altMobile" name="altMobile">
-        </div>
+        
 
         <div class="form-section">
             <label for="village">Village:</label>
@@ -250,14 +284,14 @@
             <input type="text" id="nationality" name="nationality" value="Bangladesh" readonly>
         </div>
 
-        <div class="form-section">
+        <!-- <div class="form-section">
             <label for="examination">Examination:</label>
             <select id="examination" name="examination" required>
                 <option value="JSC">JSC</option>
                 <option value="SSC">SSC</option>
                 <option value="HSC">HSC</option>
             </select>
-        </div>
+        </div> -->
 
         <div class="form-section">
             <h3>Educational Qualification</h3>
@@ -273,6 +307,46 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td>
+                            <select id="examination1" name="examination1">
+                                <option value="JCS">JCS</option>
+                                <option value="SSC">SSC</option>
+                                <option value="HSC">HSC</option>
+                            </select>
+                        </td>
+                        <td><input type="text" id="board1" name="board1"></td>
+                        <td><input type="text" id="subject1" name="subject1"></td>
+                        <td><input type="text" id="grade1" name="grade1"></td>
+                        <td><input type="text" id="year1" name="year1"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select id="examination2" name="examination2">
+                                <option value="JCS">JCS</option>
+                                <option value="SSC">SSC</option>
+                                <option value="HSC">HSC</option>
+                            </select>
+                        </td>
+                        <td><input type="text" id="board2" name="board2"></td>
+                        <td><input type="text" id="subject2" name="subject2"></td>
+                        <td><input type="text" id="grade2" name="grade2"></td>
+                        <td><input type="text" id="year2" name="year2"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select id="examination3" name="examination3">
+                                <option value="JCS">JCS</option>
+                                <option value="SSC">SSC</option>
+                                <option value="HSC">HSC</option>
+                            </select>
+                        </td>
+                        <td><input type="text" id="board3" name="board3"></td>
+                        <td><input type="text" id="subject3" name="subject3"></td>
+                        <td><input type="text" id="grade3" name="grade3"></td>
+                        <td><input type="text" id="year3" name="year3"></td>
+                    </tr>
+                    
+                    <!-- <tr>
                         <td><input type="text" id="examination1" name="examination1"></td>
                         <td><input type="text" id="board1" name="board1"></td>
                         <td><input type="text" id="subject1" name="subject1"></td>
@@ -292,13 +366,13 @@
                         <td><input type="text" id="subject3" name="subject3"></td>
                         <td><input type="text" id="grade3" name="grade3"></td>
                         <td><input type="text" id="year3" name="year3"></td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
         </div>
         <label for="photo">Upload Photo:</label>
         <input type="file" id="photo" name="photo" accept="image/*">
-        <div class="form-section">
+        <!-- <div class="form-section">
             <label>Signature of Guardian:</label>
             <div style="border-top: 1px solid #000; margin-top: 40px; margin-bottom: 20px; width: 200px;"></div>
         </div>
@@ -306,7 +380,7 @@
         <div class="form-section">
             <label>Applicant's Signature and Date:</label>
             <div style="border-top: 1px solid #000; margin-top: 40px; margin-bottom: 20px; width: 200px;"></div>
-        </div>
+        </div> -->
 
         <button type="submit">Submit</button>
     </form>
@@ -314,13 +388,32 @@
 <Script>
 
 
-document.getElementById('admissionForm').addEventListener('submit', function(event) {
+
+
+    let isCopying = true;
+
+    function copyAddress() {
+        if (isCopying) {
+            document.getElementById("addressPresent").value = document.getElementById("addressPermanent").value;
+        }
+    }
+
+    function stopCopying() {
+        isCopying = false;
+    }
+
+
+
+
+    document.getElementById('admissionForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
     // Collect form data
     const date = document.getElementById('date').value || '';
     const courseName = document.getElementById('courseName').value || '';
-    const courseDuration = document.querySelector('input[name="courseDuration"]:checked')?.value || '';
+    const courseDuration = document.getElementById('courseDuration').value || '';
+    //const courseName = document.querySelector('input[name="courseName"]:checked')?.value || '';
+    //const courseDuration = document.querySelector('input[name="courseDuration"]:checked')?.value || '';
     const applicantNameBangla = document.getElementById('applicantNameBangla').value || '';
     const applicantNameCapital = document.getElementById('applicantNameCapital').value || '';
     const fatherName = document.getElementById('fatherName').value || '';
@@ -365,64 +458,93 @@ document.getElementById('admissionForm').addEventListener('submit', function(eve
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    if (photoFile) {
-        // Read the image file and add it to the PDF beside the title
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const imgData = e.target.result;
-            doc.addImage(imgData, 'JPEG', 10, 30, 30, 30); // Adjusted placement of photo
-            generatePDF(); // Move on to generating the rest of the PDF
-        };
-        reader.readAsDataURL(photoFile);
-    } else {
-        generatePDF();
-    }
+    // Load the header image and watermark image
+    const headerImgUrl = 'https://raw.githubusercontent.com/Amponsah-Boahen-Denis/fotos/main/header-of-pdf.png';
+    const watermarkImgUrl = 'https://raw.githubusercontent.com/Amponsah-Boahen-Denis/fotos/main/watermark.png';
+
+    const headerImg = new Image();
+    headerImg.crossOrigin = 'Anonymous';
+    headerImg.src = headerImgUrl;
+
+    const watermarkImg = new Image();
+    watermarkImg.crossOrigin = 'Anonymous';
+    watermarkImg.src = watermarkImgUrl;
+
+    headerImg.onload = function() {
+        if (photoFile) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imgData = e.target.result;
+                watermarkImg.onload = function() {
+                    // Cover the entire width of the page with the header image
+                    doc.addImage(headerImg, 'PNG', 0, 0, 210, 35);
+                    doc.addImage(watermarkImg, 'PNG', 10, 30, 190, 270, '', 'NONE', 0.1); // Pale watermark
+                    doc.addImage(imgData, 'JPEG', 170, 15, 30, 30);
+                    generatePDF();
+                };
+            };
+            reader.readAsDataURL(photoFile);
+        } else {
+            watermarkImg.onload = function() {
+                doc.addImage(headerImg, 'PNG', 0, 0, 210, 35);
+                doc.addImage(watermarkImg, 'PNG', 10, 30, 190, 270, '', 'NONE', 0.1); // Pale watermark
+                generatePDF();
+            };
+        }
+    };
 
     function generatePDF() {
-        // Title and headers with box and color, adjusted placement beside the image
-        doc.setFillColor(192, 192, 192);  // Light grey background for header
-        doc.rect(45, 30, 155, 30, 'F');  // Rectangular box for title beside the image
-        doc.setFontSize(18);
-        doc.setTextColor(0, 0, 128);  // Blue text color
-        doc.text('FUTURE GOAL ACADEMY', 120, 40, { align: 'center' });
-        doc.text('Admission Form', 120, 50, { align: 'center' });
+        const startingY = 50;
 
-        // Form sections and fields
         doc.setFontSize(12);
-        doc.setTextColor(0, 0, 0);  // Reset to black text
+        doc.setTextColor(0, 0, 0);
 
-        // Adjust the starting y-position to be below the title and image
-        const startingY = 70;  // Adjusted top space
+        const fieldHeight = 12;
+        const fieldSpacing = 6;
+        let currentY = startingY;
 
         // Date and Course
-        drawFieldBox(doc, 'Date:', date, 10, startingY, 90);
-        drawFieldBox(doc, 'Course Name:', courseName, 110, startingY, 90);
-        drawFieldBox(doc, 'Course Duration:', courseDuration, 10, startingY + 10, 90);
+        drawFieldBox(doc, 'Date:', date, 10, currentY, 90);
+        drawFieldBox(doc, 'Course Name:', courseName, 110, currentY, 90);
+        currentY += fieldHeight + fieldSpacing;
+        drawFieldBox(doc, 'Course Duration:', courseDuration, 10, currentY, 90);
+        currentY += fieldHeight + fieldSpacing;
 
         // Applicant Details
-        drawFieldBox(doc, 'Applicant Name(Bang.):', applicantNameBangla, 10, startingY + 20, 90);
-        drawFieldBox(doc, 'Applicant Name(Capit.):', applicantNameCapital, 110, startingY + 20, 90);
-        drawFieldBox(doc, 'Father\'s Name:', fatherName, 10, startingY + 30, 90);
-        drawFieldBox(doc, 'Father\'s Name(Capit.):', fatherNameCapital, 110, startingY + 30, 90);
-        drawFieldBox(doc, 'Mother\'s Name:', motherName, 10, startingY + 40, 90);
-        drawFieldBox(doc, 'Mother\'s Name(Capit.):', motherNameCapital, 110, startingY + 40, 90);
+        drawFieldBox(doc, 'Applicant Name(Bang.):', applicantNameBangla, 10, currentY, 90);
+        drawFieldBox(doc, 'Applicant Name(English):', applicantNameCapital, 110, currentY, 90);
+        currentY += fieldHeight + fieldSpacing;
+        drawFieldBox(doc, 'Father\'s Name:', fatherName, 10, currentY, 90);
+        drawFieldBox(doc, 'Father\'s Name(English):', fatherNameCapital, 110, currentY, 90);
+        currentY += fieldHeight + fieldSpacing;
+        drawFieldBox(doc, 'Mother\'s Name:', motherName, 10, currentY, 90);
+        drawFieldBox(doc, 'Mother\'s Name(English):', motherNameCapital, 110, currentY, 90);
+        currentY += fieldHeight + fieldSpacing;
 
         // Addresses
-        drawFieldBox(doc, 'Permanent Address:', addressPermanent, 10, startingY + 50, 190);
-        drawFieldBox(doc, 'Present Address:', addressPresent, 10, startingY + 60, 190);
+        drawFieldBox(doc, 'Permanent Address:', addressPermanent, 10, currentY, 190);
+        currentY += fieldHeight + fieldSpacing;
+        drawFieldBox(doc, 'Present Address:', addressPresent, 10, currentY, 190);
+        currentY += fieldHeight + fieldSpacing;
 
         // Additional Information
-        drawFieldBox(doc, 'Date of Birth:', dob, 10, startingY + 70, 90);
-        drawFieldBox(doc, 'Religion:', religion, 110, startingY + 70, 90);
-        drawFieldBox(doc, 'Profession:', profession, 10, startingY + 80, 90);
-        drawFieldBox(doc, 'Mobile:', mobile, 110, startingY + 80, 90);
-        drawFieldBox(doc, 'Email:', email, 10, startingY + 90, 90);
-        drawFieldBox(doc, 'Alt Mobile:', altMobile, 110, startingY + 90, 90);
-        drawFieldBox(doc, 'Village:', village, 10, startingY + 100, 90);
-        drawFieldBox(doc, 'P/O:', po, 110, startingY + 100, 90);
-        drawFieldBox(doc, 'Upazilla:', upazilla, 10, startingY + 110, 90);
-        drawFieldBox(doc, 'District:', district, 110, startingY + 110, 90);
-        drawFieldBox(doc, 'Nationality:', nationality, 10, startingY + 120, 90);
+        drawFieldBox(doc, 'Date of Birth:', dob, 10, currentY, 90);
+        drawFieldBox(doc, 'Religion:', religion, 110, currentY, 90);
+        currentY += fieldHeight + fieldSpacing;
+        drawFieldBox(doc, 'Profession:', profession, 10, currentY, 90);
+        drawFieldBox(doc, 'Mobile:', mobile, 110, currentY, 90);
+        currentY += fieldHeight + fieldSpacing;
+        drawFieldBox(doc, 'Email:', email, 10, currentY, 90);
+        drawFieldBox(doc, 'Alt Mobile:', altMobile, 110, currentY, 90);
+        currentY += fieldHeight + fieldSpacing;
+        drawFieldBox(doc, 'Village:', village, 10, currentY, 90);
+        drawFieldBox(doc, 'P/O:', po, 110, currentY, 90);
+        currentY += fieldHeight + fieldSpacing;
+        drawFieldBox(doc, 'Upazilla:', upazilla, 10, currentY, 90);
+        drawFieldBox(doc, 'District:', district, 110, currentY, 90);
+        currentY += fieldHeight + fieldSpacing;
+        drawFieldBox(doc, 'Nationality:', nationality, 10, currentY, 90);
+        currentY += fieldHeight + fieldSpacing;
 
         // Educational Qualification Section
         doc.setFontSize(10);
@@ -433,31 +555,180 @@ document.getElementById('admissionForm').addEventListener('submit', function(eve
                 [examination2, board2, subject2, grade2, year2],
                 [examination3, board3, subject3, grade3, year3]
             ],
-            startY: startingY + 130,
+            startY: currentY + 10,
             theme: 'grid'
         });
 
-        // Signature Section
-        doc.setFontSize(12);
-        doc.text('Guardian Signature:', 10, doc.lastAutoTable.finalY + 20);
-        doc.line(60, doc.lastAutoTable.finalY + 20, 150, doc.lastAutoTable.finalY + 20); // Signature Line
+        // Signature Section (Linear Layout)
+        const signatureStartY = doc.lastAutoTable.finalY + 20;
+        drawSignatureLine(doc, 'Guardian Signature and date:', 10, signatureStartY);
+        drawSignatureLine(doc, 'Applicant Signature and date:', 80, signatureStartY);
+        drawSignatureLine(doc, 'Institution Signature and date:', 150, signatureStartY);
 
-        doc.text('Applicant Signature:', 10, doc.lastAutoTable.finalY + 40);
-        doc.line(60, doc.lastAutoTable.finalY + 40, 150, doc.lastAutoTable.finalY + 40); // Signature Line
-
-        // Save the PDF
         doc.save('admission_form.pdf');
     }
 
-    // Function to draw a labeled field with a box around it
-    function drawFieldBox(doc, label, value, x, y, width) {
+    // Function to draw a field with a box
+    function drawFieldBox(doc, label, value, x, y, boxWidth) {
+        const labelWidth = doc.getTextWidth(label) + 2;
+        doc.setFillColor(240);
+        doc.rect(x, y - 8, boxWidth, 10, 'F'); // box around the field
+        doc.text(label, x + 1, y);
+        doc.text(value, x + labelWidth + 5, y);
+    }
+
+    // Function to draw a signature line
+    function drawSignatureLine(doc, label, x, y) {
         doc.setFontSize(10);
-        doc.setDrawColor(0, 0, 0);  // Black border color
-        doc.rect(x, y, width, 8);   // Draw the box
-        doc.text(label, x + 2, y + 5);  // Add the label
-        doc.text(value, x + 40, y + 5);  // Add the value
+        doc.text(label, x, y + 10); // Move label below the line
+        doc.line(x, y, x + 60, y); // Signature line
     }
 });
+
+// document.getElementById('admissionForm').addEventListener('submit', function(event) {
+//     event.preventDefault();
+
+//     // Collect form data
+//     const date = document.getElementById('date').value || '';
+//     const courseName = document.getElementById('courseName').value || '';
+//     const courseDuration = document.querySelector('input[name="courseDuration"]:checked')?.value || '';
+//     const applicantNameBangla = document.getElementById('applicantNameBangla').value || '';
+//     const applicantNameCapital = document.getElementById('applicantNameCapital').value || '';
+//     const fatherName = document.getElementById('fatherName').value || '';
+//     const fatherNameCapital = document.getElementById('fatherNameCapital').value || '';
+//     const motherName = document.getElementById('motherName').value || '';
+//     const motherNameCapital = document.getElementById('motherNameCapital').value || '';
+//     const addressPermanent = document.getElementById('addressPermanent').value || '';
+//     const addressPresent = document.getElementById('addressPresent').value || '';
+//     const dob = document.getElementById('dob').value || '';
+//     const religion = document.getElementById('religion').value || '';
+//     const profession = document.getElementById('profession').value || '';
+//     const mobile = document.getElementById('mobile').value || '';
+//     const email = document.getElementById('email').value || '';
+//     const altMobile = document.getElementById('altMobile').value || '';
+//     const village = document.getElementById('village').value || '';
+//     const po = document.getElementById('po').value || '';
+//     const upazilla = document.getElementById('upazilla').value || '';
+//     const district = document.getElementById('district').value || '';
+//     const nationality = document.getElementById('nationality').value || 'Bangladesh';
+
+//     const examination1 = document.getElementById('examination1').value || '';
+//     const board1 = document.getElementById('board1').value || '';
+//     const subject1 = document.getElementById('subject1').value || '';
+//     const grade1 = document.getElementById('grade1').value || '';
+//     const year1 = document.getElementById('year1').value || '';
+
+//     const examination2 = document.getElementById('examination2').value || '';
+//     const board2 = document.getElementById('board2').value || '';
+//     const subject2 = document.getElementById('subject2').value || '';
+//     const grade2 = document.getElementById('grade2').value || '';
+//     const year2 = document.getElementById('year2').value || '';
+
+//     const examination3 = document.getElementById('examination3').value || '';
+//     const board3 = document.getElementById('board3').value || '';
+//     const subject3 = document.getElementById('subject3').value || '';
+//     const grade3 = document.getElementById('grade3').value || '';
+//     const year3 = document.getElementById('year3').value || '';
+
+//     const photoInput = document.getElementById('photo');
+//     const photoFile = photoInput ? photoInput.files[0] : null;
+
+//     const { jsPDF } = window.jspdf;
+//     const doc = new jsPDF();
+
+//     if (photoFile) {
+//         // Read the image file and add it to the PDF beside the title
+//         const reader = new FileReader();
+//         reader.onload = function(e) {
+//             const imgData = e.target.result;
+//             doc.addImage(imgData, 'JPEG', 10, 30, 30, 30); // Adjusted placement of photo
+//             generatePDF(); // Move on to generating the rest of the PDF
+//         };
+//         reader.readAsDataURL(photoFile);
+//     } else {
+//         generatePDF();
+//     }
+
+//     function generatePDF() {
+//         // Title and headers with box and color, adjusted placement beside the image
+//         doc.setFillColor(192, 192, 192);  // Light grey background for header
+//         doc.rect(45, 30, 155, 30, 'F');  // Rectangular box for title beside the image
+//         doc.setFontSize(18);
+//         doc.setTextColor(0, 0, 128);  // Blue text color
+//         doc.text('FUTURE GOAL ACADEMY', 120, 40, { align: 'center' });
+//         doc.text('Admission Form', 120, 50, { align: 'center' });
+
+//         // Form sections and fields
+//         doc.setFontSize(12);
+//         doc.setTextColor(0, 0, 0);  // Reset to black text
+
+//         // Adjust the starting y-position to be below the title and image
+//         const startingY = 70;  // Adjusted top space
+
+//         // Date and Course
+//         drawFieldBox(doc, 'Date:', date, 10, startingY, 90);
+//         drawFieldBox(doc, 'Course Name:', courseName, 110, startingY, 90);
+//         drawFieldBox(doc, 'Course Duration:', courseDuration, 10, startingY + 10, 90);
+
+//         // Applicant Details
+//         drawFieldBox(doc, 'Applicant Name(Bang.):', applicantNameBangla, 10, startingY + 20, 90);
+//         drawFieldBox(doc, 'Applicant Name(Capit.):', applicantNameCapital, 110, startingY + 20, 90);
+//         drawFieldBox(doc, 'Father\'s Name:', fatherName, 10, startingY + 30, 90);
+//         drawFieldBox(doc, 'Father\'s Name(Capit.):', fatherNameCapital, 110, startingY + 30, 90);
+//         drawFieldBox(doc, 'Mother\'s Name:', motherName, 10, startingY + 40, 90);
+//         drawFieldBox(doc, 'Mother\'s Name(Capit.):', motherNameCapital, 110, startingY + 40, 90);
+
+//         // Addresses
+//         drawFieldBox(doc, 'Permanent Address:', addressPermanent, 10, startingY + 50, 190);
+//         drawFieldBox(doc, 'Present Address:', addressPresent, 10, startingY + 60, 190);
+
+//         // Additional Information
+//         drawFieldBox(doc, 'Date of Birth:', dob, 10, startingY + 70, 90);
+//         drawFieldBox(doc, 'Religion:', religion, 110, startingY + 70, 90);
+//         drawFieldBox(doc, 'Profession:', profession, 10, startingY + 80, 90);
+//         drawFieldBox(doc, 'Mobile:', mobile, 110, startingY + 80, 90);
+//         drawFieldBox(doc, 'Email:', email, 10, startingY + 90, 90);
+//         drawFieldBox(doc, 'Alt Mobile:', altMobile, 110, startingY + 90, 90);
+//         drawFieldBox(doc, 'Village:', village, 10, startingY + 100, 90);
+//         drawFieldBox(doc, 'P/O:', po, 110, startingY + 100, 90);
+//         drawFieldBox(doc, 'Upazilla:', upazilla, 10, startingY + 110, 90);
+//         drawFieldBox(doc, 'District:', district, 110, startingY + 110, 90);
+//         drawFieldBox(doc, 'Nationality:', nationality, 10, startingY + 120, 90);
+
+//         // Educational Qualification Section
+//         doc.setFontSize(10);
+//         doc.autoTable({
+//             head: [['Examination', 'Board', 'Subject', 'Grade', 'Year']],
+//             body: [
+//                 [examination1, board1, subject1, grade1, year1],
+//                 [examination2, board2, subject2, grade2, year2],
+//                 [examination3, board3, subject3, grade3, year3]
+//             ],
+//             startY: startingY + 130,
+//             theme: 'grid'
+//         });
+
+//         // Signature Section
+//         doc.setFontSize(12);
+//         doc.text('Guardian Signature:', 10, doc.lastAutoTable.finalY + 20);
+//         doc.line(60, doc.lastAutoTable.finalY + 20, 150, doc.lastAutoTable.finalY + 20); // Signature Line
+
+//         doc.text('Applicant Signature:', 10, doc.lastAutoTable.finalY + 40);
+//         doc.line(60, doc.lastAutoTable.finalY + 40, 150, doc.lastAutoTable.finalY + 40); // Signature Line
+
+//         // Save the PDF
+//         doc.save('admission_form.pdf');
+//     }
+
+//     // Function to draw a labeled field with a box around it
+//     function drawFieldBox(doc, label, value, x, y, width) {
+//         doc.setFontSize(10);
+//         doc.setDrawColor(0, 0, 0);  // Black border color
+//         doc.rect(x, y, width, 8);   // Draw the box
+//         doc.text(label, x + 2, y + 5);  // Add the label
+//         doc.text(value, x + 40, y + 5);  // Add the value
+//     }
+// });
 
 // document.getElementById('admissionForm').addEventListener('submit', function(event) {
 //     event.preventDefault();

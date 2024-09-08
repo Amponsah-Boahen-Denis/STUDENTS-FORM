@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
     <title>Admission Form</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
@@ -172,7 +173,7 @@
 
         <div class="form-section">
             <label for="applicantNameCapital">Applicant Name (English):</label>
-            <input type="text" id="applicantNameCapital" name="applicantNameCapital" required>
+            <input type="text" id="applicantNameCapital" name="applicantNameCapital" required  oninput="this.value = this.value.toUpperCase()">
         </div>
 
         <div class="form-section">
@@ -182,7 +183,7 @@
 
         <div class="form-section">
             <label for="fatherNameCapital">Father’s Name (English):</label>
-            <input type="text" id="fatherNameCapital" name="fatherNameCapital" required>
+            <input type="text" id="fatherNameCapital" name="fatherNameCapital" required  oninput="this.value = this.value.toUpperCase()">
         </div>
 
         <div class="form-section">
@@ -190,10 +191,16 @@
             <input type="text" id="motherName" name="motherName" required>
         </div>
 
+
         <div class="form-section">
             <label for="motherNameCapital">Mother’s Name (English):</label>
-            <input type="text" id="motherNameCapital" name="motherNameCapital" required>
+            <input type="text" id="motherNameCapital" name="motherNameCapital" required oninput="this.value = this.value.toUpperCase()">
         </div>
+        
+        <!-- <div class="form-section">
+            <label for="motherNameCapital">Mother’s Name (English):</label>
+            <input type="text" id="motherNameCapital" name="motherNameCapital" required>
+        </div> -->
 
 
     
@@ -404,7 +411,6 @@
 
 
 
-
     document.getElementById('admissionForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -470,28 +476,52 @@
     watermarkImg.crossOrigin = 'Anonymous';
     watermarkImg.src = watermarkImgUrl;
 
+    // headerImg.onload = function() {
+    //     if (photoFile) {
+    //         const reader = new FileReader();
+    //         reader.onload = function(e) {
+    //             const imgData = e.target.result;
+    //             watermarkImg.onload = function() {
+    //                 // Cover the entire width of the page with the header image
+    //                 doc.addImage(headerImg, 'PNG', 10, 0, 210, 35);
+    //                 doc.addImage(watermarkImg, 'PNG', 10, 30, 190, 270, '', 'NONE', 0.02); // Pale watermark
+    //                 doc.addImage(imgData, 'JPEG', 170, 15, 30, 30);
+    //                 generatePDF();
+    //             };
+    //         };
+    //         reader.readAsDataURL(photoFile);
+    //     } else {
+    //         watermarkImg.onload = function() {
+    //             doc.addImage(headerImg, 'PNG', 10, 0, 210, 35);
+    //             doc.addImage(watermarkImg, 'PNG', 10, 30, 190, 270, '', 'NONE', 0.02); // Pale watermark
+    //             generatePDF();
+    //         };
+    //     }
+    // };
+
     headerImg.onload = function() {
-        if (photoFile) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const imgData = e.target.result;
-                watermarkImg.onload = function() {
-                    // Cover the entire width of the page with the header image
-                    doc.addImage(headerImg, 'PNG', 0, 0, 210, 35);
-                    doc.addImage(watermarkImg, 'PNG', 10, 30, 190, 270, '', 'NONE', 0.1); // Pale watermark
-                    doc.addImage(imgData, 'JPEG', 170, 15, 30, 30);
-                    generatePDF();
-                };
-            };
-            reader.readAsDataURL(photoFile);
-        } else {
+    if (photoFile) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const imgData = e.target.result;
             watermarkImg.onload = function() {
-                doc.addImage(headerImg, 'PNG', 0, 0, 210, 35);
-                doc.addImage(watermarkImg, 'PNG', 10, 30, 190, 270, '', 'NONE', 0.1); // Pale watermark
+                // Adjust the header image to fit within the 10px margin on both sides
+                doc.addImage(headerImg, 'PNG', 10, 0, 190, 35); // Adjusted width for 10px margin
+                doc.addImage(watermarkImg, 'PNG', 10, 30, 190, 270, '', 'NONE', 0.02); // Pale watermark
+                doc.addImage(imgData, 'JPEG', 170, 15, 30, 30);
                 generatePDF();
             };
-        }
-    };
+        };
+        reader.readAsDataURL(photoFile);
+    } else {
+        watermarkImg.onload = function() {
+            // Adjust the header image to fit within the 10px margin on both sides
+            doc.addImage(headerImg, 'PNG', 10, 0, 190, 35); // Adjusted width for 10px margin
+            doc.addImage(watermarkImg, 'PNG', 10, 30, 190, 270, '', 'NONE', 0.02); // Pale watermark
+            generatePDF();
+        };
+    }
+};
 
     function generatePDF() {
         const startingY = 50;
@@ -585,6 +615,7 @@
     }
 });
 
+    
 // document.getElementById('admissionForm').addEventListener('submit', function(event) {
 //     event.preventDefault();
 

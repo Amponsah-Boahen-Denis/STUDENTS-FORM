@@ -204,7 +204,7 @@
 
 
     
-        <div class="form-section">
+        <!-- <div class="form-section">
             <label for="addressPermanent">Address (Permanent):</label>
             <textarea id="addressPermanent" name="addressPermanent" rows="2" required oninput="copyAddress()"></textarea>
         </div>
@@ -212,9 +212,23 @@
         <div class="form-section">
             <label for="addressPresent">Address (Present):</label>
             <textarea id="addressPresent" name="addressPresent" rows="2" required onfocus="stopCopying()"></textarea>
+        </div> -->
+        
+        
+        <div class="form-section">
+            <label for="addressPermanent">Address (Permanent):</label>
+            <textarea id="addressPermanent" name="addressPermanent" rows="2" required></textarea>
         </div>
         
         
+            
+            Same as Permanent Address <input type="checkbox" id="sameAddressCheckbox" onclick="toggleAddressCopying()">
+        
+        
+        <div class="form-section">
+            <label for="addressPresent">Address (Present):</label>
+            <textarea id="addressPresent" name="addressPresent" rows="2" required></textarea>
+        </div>
         
         
         
@@ -397,17 +411,28 @@
 
 
 
-    let isCopying = true;
+function toggleAddressCopying() {
+    const permanentAddress = document.getElementById("addressPermanent").value;
+    const presentAddress = document.getElementById("addressPresent");
+    const isChecked = document.getElementById("sameAddressCheckbox").checked;
 
-    function copyAddress() {
-        if (isCopying) {
-            document.getElementById("addressPresent").value = document.getElementById("addressPermanent").value;
-        }
+    if (isChecked) {
+        presentAddress.value = permanentAddress;
+        presentAddress.disabled = true; // Disable the text area if it's auto-filled
+    } else {
+        presentAddress.disabled = false; // Enable the text area if the checkbox is unchecked
+        presentAddress.value = ""; // Clear the present address if the checkbox is unchecked
     }
+}
 
-    function stopCopying() {
-        isCopying = false;
+// Optionally, update the present address field if the user changes the permanent address while the checkbox is checked
+document.getElementById("addressPermanent").addEventListener("input", function() {
+    const isChecked = document.getElementById("sameAddressCheckbox").checked;
+    if (isChecked) {
+        document.getElementById("addressPresent").value = this.value;
     }
+});
+
 
 
 

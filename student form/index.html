@@ -643,7 +643,7 @@ headerImg.onload = function() {
                 doc.addImage(headerImg, 'PNG', 0, 0, 210, 42); // Full width (210 for A4)
 
                 // Set global transparency (opacity) for the watermark image
-                doc.setGState(new doc.GState({ opacity: 0.1 })); // Adjust opacity (0 = fully transparent, 1 = fully opaque)
+                doc.setGState(new doc.GState({ opacity: 0.07 })); // Adjust opacity (0 = fully transparent, 1 = fully opaque)
 
                 // Add the watermark image with the applied transparency
                 doc.addImage(watermarkImg, 'PNG', 10, 30, 190, 270);

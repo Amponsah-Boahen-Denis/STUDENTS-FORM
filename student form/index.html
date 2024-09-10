@@ -298,7 +298,7 @@ button:hover {
 
         <div class="form-section">
             <label for="applicantNameBangla">Applicant Name (Bangla):</label>
-            <input type="text" id="applicantNameBangla" name="applicantNameBangla" required>
+            <input type="text" id="applicantNameBangla" placeholder="only Bangla name Supported" name="applicantNameBangla" required  oninput="this.value=this.value.replace(/[^\u0980-\u09FF ]/g,'')">
         </div>
 
         <div class="form-section">
@@ -307,8 +307,8 @@ button:hover {
         </div>
 
         <div class="form-section">
-            <label for="fatherName">Father’s Name:</label>
-            <input type="text" id="fatherName" name="fatherName" required>
+            <label for="fatherName">Father’s Name (Bangla):</label>
+            <input type="text" id="fatherName" name="fatherName" placeholder="only Bangla name Supported" oninput="this.value=this.value.replace(/[^\u0980-\u09FF ]/g,'')">
         </div>
 
         <div class="form-section">
@@ -317,8 +317,8 @@ button:hover {
         </div>
 
         <div class="form-section">
-            <label for="motherName">Mother’s Name:</label>
-            <input type="text" id="motherName" name="motherName" required>
+            <label for="motherName">Mother’s Name(Bangla):</label>
+            <input type="text" id="motherName" name="motherName" placeholder="only Bangla name Supported" required oninput="this.value=this.value.replace(/[^\u0980-\u09FF ]/g,'')">
         </div>
 
 
@@ -615,9 +615,13 @@ document.getElementById("addressPermanent").addEventListener("input", function()
 
     const photoInput = document.getElementById('photo');
     const photoFile = photoInput ? photoInput.files[0] : null;
+    
+    
 
-    const { jsPDF } = window.jspdf;
+
+const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
+
 
     // Load the header image and watermark image
     const headerImgUrl = 'https://raw.githubusercontent.com/Amponsah-Boahen-Denis/fotos/main/header-of-pdf.png';
@@ -640,10 +644,10 @@ headerImg.onload = function() {
             const imgData = e.target.result;
             watermarkImg.onload = function() {
                 // Add the header image without margins
-                doc.addImage(headerImg, 'PNG', 0, 0, 210, 42); // Full width (210 for A4)
-
+                // doc.addImage(headerImg, 'PNG', 0, 0, 210, 50); // Full width (210 for A4)
+                doc.addImage(headerImg, 'PNG', 0, 0, 210, 52); // 60 is the original Y (0) plus the height of the image (50) plus the margin (10)
                 // Set global transparency (opacity) for the watermark image
-                doc.setGState(new doc.GState({ opacity: 0.07 })); // Adjust opacity (0 = fully transparent, 1 = fully opaque)
+                doc.setGState(new doc.GState({ opacity: 0.04 })); // Adjust opacity (0 = fully transparent, 1 = fully opaque)
 
                 // Add the watermark image with the applied transparency
                 doc.addImage(watermarkImg, 'PNG', 10, 30, 190, 270);
@@ -655,7 +659,7 @@ headerImg.onload = function() {
                 const imgWithBorderRadius = new Image();
                 imgWithBorderRadius.src = imgData;
                 imgWithBorderRadius.style.borderRadius ="10px";
-                doc.addImage(imgData, 'JPEG', 175, 16, 30, 30);
+                doc.addImage(imgData, 'JPEG', 175, 23, 30, 30);
 
 
                 
@@ -669,10 +673,10 @@ headerImg.onload = function() {
     } else {
         watermarkImg.onload = function() {
             // Add the header image without margins
-            doc.addImage(headerImg, 'PNG', 0, 0, 210, 42); // Full width (210 for A4)
+            doc.addImage(headerImg, 'PNG', 0, 0, 210, 47); // Full width (210 for A4)
 
             // Set global transparency (opacity) for the watermark image
-            doc.setGState(new doc.GState({ opacity: 0.01 })); // Adjust opacity (0 = fully transparent, 1 = fully opaque)
+            doc.setGState(new doc.GState({ opacity: 0.04 })); // Adjust opacity (0 = fully transparent, 1 = fully opaque)
 
             // Add the watermark image with the applied transparency
             doc.addImage(watermarkImg, 'PNG', 10, 30, 190, 270);
@@ -688,7 +692,7 @@ headerImg.onload = function() {
 
 
     function generatePDF() {
-        const startingY = 50;
+        const startingY = 63;
 
         doc.setFontSize(12);
         doc.setTextColor(0, 0, 0);
@@ -704,7 +708,7 @@ headerImg.onload = function() {
         drawFieldBox(doc, 'Course Duration:', courseDuration, 10, currentY, 90);
         currentY += fieldHeight + fieldSpacing;
 
-        // Applicant Details
+        
         drawFieldBox(doc, 'Applicant Name(Bang.):', applicantNameBangla, 10, currentY, 90);
         drawFieldBox(doc, 'Applicant Name(English):', applicantNameCapital, 110, currentY, 90);
         currentY += fieldHeight + fieldSpacing;
@@ -714,6 +718,8 @@ headerImg.onload = function() {
         drawFieldBox(doc, 'Mother\'s Name:', motherName, 10, currentY, 90);
         drawFieldBox(doc, 'Mother\'s Name(English):', motherNameCapital, 110, currentY, 90);
         currentY += fieldHeight + fieldSpacing;
+
+
 
         // Addresses
         drawFieldBox(doc, 'Permanent Address:', addressPermanent, 10, currentY, 190);

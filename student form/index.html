@@ -258,10 +258,26 @@ button:hover {
     <h1>FUTURE GOAL ACADEMY</h1>
     <h3>Admission Form</h3>
     <form id="admissionForm">
+
         <div class="form-section">
             <label for="date">Date:</label>
-            <input type="date" id="date" name="date" value="2024-09-07" readonly required>
+            <input type="date" id="date" name="date" readonly required 
+                value="" 
+                onfocus="this.value = (function() {
+                    var now = new Date();
+                    var offset = now.getTimezoneOffset() + 300;
+                    now.setMinutes(now.getMinutes() + offset);
+                    var year = now.getFullYear();
+                    var month = String(now.getMonth() + 1).padStart(2, '0');
+                    var day = String(now.getDate()).padStart(2, '0');
+                    return year + '-' + month + '-' + day;
+                })();">
         </div>
+        
+        <!-- <div class="form-section">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" value="2024-09-07" readonly required>
+        </div> -->
         
         
         <!-- <div class="form-section">
@@ -373,11 +389,21 @@ button:hover {
             <textarea id="addressPresent" name="addressPresent" rows="2" required></textarea>
         </div> -->
 
-        <div class="form-section">
+        <!-- <div class="form-section">
             <label for="dob">Date of Birth:</label>
             <input type="date" id="dob" name="dob" required>
-        </div>
+        </div> -->
 
+        <div class="form-section">
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required onchange="this.setAttribute('data-year', this.value.split('-')[0])">
+        </div>
+        
+        <!-- <div class="form-section">
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required onchange="this.setAttribute('data-year', new Date(this.value).getFullYear())">
+        </div> -->
+        
         <div class="form-section">
             <label for="religion">Religion:</label>
             <select id="religion" name="religion" required>
@@ -435,14 +461,7 @@ button:hover {
             <input type="text" id="nationality" name="nationality" value="Bangladesh" readonly>
         </div>
 
-        <!-- <div class="form-section">
-            <label for="examination">Examination:</label>
-            <select id="examination" name="examination" required>
-                <option value="JSC">JSC</option>
-                <option value="SSC">SSC</option>
-                <option value="HSC">HSC</option>
-            </select>
-        </div> -->
+        
 
         <div class="form-section">
             <h3>Educational Qualification</h3>
@@ -621,6 +640,11 @@ document.getElementById("addressPermanent").addEventListener("input", function()
 
 const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
+    
+//     doc.addFont('NotoSansBengali-Regular.ttf', 'NotoSansBengali', 'normal');
+
+// // Set the font for Bangla text
+// doc.setFont('NotoSansBengali', 'normal');
 
 
     // Load the header image and watermark image
@@ -712,12 +736,14 @@ headerImg.onload = function() {
         drawFieldBox(doc, 'Applicant Name(Bang.):', applicantNameBangla, 10, currentY, 90);
         drawFieldBox(doc, 'Applicant Name(English):', applicantNameCapital, 110, currentY, 90);
         currentY += fieldHeight + fieldSpacing;
-        drawFieldBox(doc, 'Father\'s Name:', fatherName, 10, currentY, 90);
+        drawFieldBox(doc, 'Father\'s Name(Bangla):', fatherName, 10, currentY, 90);
         drawFieldBox(doc, 'Father\'s Name(English):', fatherNameCapital, 110, currentY, 90);
         currentY += fieldHeight + fieldSpacing;
-        drawFieldBox(doc, 'Mother\'s Name:', motherName, 10, currentY, 90);
+        drawFieldBox(doc, 'Mother\'s Name(Bangla):', motherName, 10, currentY, 90);
         drawFieldBox(doc, 'Mother\'s Name(English):', motherNameCapital, 110, currentY, 90);
         currentY += fieldHeight + fieldSpacing;
+
+
 
 
 

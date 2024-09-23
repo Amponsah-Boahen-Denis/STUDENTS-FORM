@@ -671,155 +671,289 @@ doc.setFont("NotoSansBengali", "normal");
 
   
 
-headerImg.onload = function() {
+// headerImg.onload = function() {
+//     if (photoFile) {
+//         const reader = new FileReader();
+//         reader.onload = function(e) {
+//             const imgData = e.target.result;
+//             watermarkImg.onload = function() {
+//                 // Add the header image without margins
+//                 // doc.addImage(headerImg, 'PNG', 0, 0, 210, 50); // Full width (210 for A4)
+//                 doc.addImage(headerImg, 'PNG', 0, 0, 210, 55); // 60 is the original Y (0) plus the height of the image (50) plus the margin (10)
+//                 // Set global transparency (opacity) for the watermark image
+//                 doc.setGState(new doc.GState({ opacity: 0.04 })); // Adjust opacity (0 = fully transparent, 1 = fully opaque)
+
+//                 // Add the watermark image with the applied transparency
+//                 doc.addImage(watermarkImg, 'PNG', 10, 30, 190, 270);
+
+//                 // Reset opacity back to default for other elements
+//                 doc.setGState(new doc.GState({ opacity: 1 }));
+
+//                 // Add the uploaded image (with border radius manually simulated)
+//                 const imgWithBorderRadius = new Image();
+//                 imgWithBorderRadius.src = imgData;
+//                 imgWithBorderRadius.style.borderRadius ="10px";
+//                 doc.addImage(imgData, 'JPEG', 175, 23, 30, 30);
+
+
+                
+
+                
+
+//                 generatePDF();
+//             };
+//         };
+//         reader.readAsDataURL(photoFile);
+//     } else {
+//         watermarkImg.onload = function() {
+//             // Add the header image without margins
+//             doc.addImage(headerImg, 'PNG', 0, 0, 210, 47); // Full width (210 for A4)
+
+//             // Set global transparency (opacity) for the watermark image
+//             doc.setGState(new doc.GState({ opacity: 0.04 })); // Adjust opacity (0 = fully transparent, 1 = fully opaque)
+
+//             // Add the watermark image with the applied transparency
+//             doc.addImage(watermarkImg, 'PNG', 10, 30, 190, 270);
+
+//             // Reset opacity back to default for other elements
+//             doc.setGState(new doc.GState({ opacity: 1}));
+
+//             generatePDF();
+//         };
+//     }
+// };
+
+
+
+//     function generatePDF() {
+//         const startingY = 63;
+
+//         doc.setFontSize(12);
+//         doc.setTextColor(0, 0, 0);
+
+//         const fieldHeight = 12;
+//         const fieldSpacing = 6;
+//         let currentY = startingY;
+
+//         // Date and Course
+//         drawFieldBox(doc, 'Date:', date, 10, currentY, 90);
+//         drawFieldBox(doc, 'Course Name:', courseName, 110, currentY, 90);
+//         currentY += fieldHeight + fieldSpacing;
+//         drawFieldBox(doc, 'Course Duration:', courseDuration, 10, currentY, 90);
+//         currentY += fieldHeight + fieldSpacing;
+
+        
+//         drawFieldBox(doc, 'Applicant Name(Bangla.):', applicantNameBangla, 10, currentY, 90);
+//         drawFieldBox(doc, 'Applicant Name(English):', applicantNameCapital, 110, currentY, 90);
+//         currentY += fieldHeight + fieldSpacing;
+//         drawFieldBox(doc, 'Father\'s Name(Bangla):', fatherName, 10, currentY, 90);
+//         drawFieldBox(doc, 'Father\'s Name(English):', fatherNameCapital, 110, currentY, 90);
+//         currentY += fieldHeight + fieldSpacing;
+//         drawFieldBox(doc, 'Mother\'s Name(Bangla):', motherName, 10, currentY, 90);
+//         drawFieldBox(doc, 'Mother\'s Name(English):', motherNameCapital, 110, currentY, 90);
+//         currentY += fieldHeight + fieldSpacing;
+
+
+
+
+
+//         // Addresses
+//         drawFieldBox(doc, 'Permanent Address:', addressPermanent, 10, currentY, 190);
+//         currentY += fieldHeight + fieldSpacing;
+//         drawFieldBox(doc, 'Present Address:', addressPresent, 10, currentY, 190);
+//         currentY += fieldHeight + fieldSpacing;
+
+//         // Additional Information
+//         drawFieldBox(doc, 'Date of Birth:', dob, 10, currentY, 90);
+//         drawFieldBox(doc, 'Religion:', religion, 110, currentY, 90);
+//         currentY += fieldHeight + fieldSpacing;
+//         drawFieldBox(doc, 'Profession:', profession, 10, currentY, 90);
+//         drawFieldBox(doc, 'Mobile:', mobile, 110, currentY, 90);
+//         currentY += fieldHeight + fieldSpacing;
+//         drawFieldBox(doc, 'Email:', email, 10, currentY, 90);
+//         drawFieldBox(doc, 'Alt Mobile:', altMobile, 110, currentY, 90);
+//         currentY += fieldHeight + fieldSpacing;
+//         drawFieldBox(doc, 'Village:', village, 10, currentY, 90);
+//         drawFieldBox(doc, 'P/O:', po, 110, currentY, 90);
+//         currentY += fieldHeight + fieldSpacing;
+//         drawFieldBox(doc, 'Upazilla:', upazilla, 10, currentY, 90);
+//         drawFieldBox(doc, 'District:', district, 110, currentY, 90);
+//         currentY += fieldHeight + fieldSpacing;
+//         drawFieldBox(doc, 'Nationality:', nationality, 10, currentY, 90);
+//         currentY += fieldHeight + fieldSpacing;
+
+//         // Educational Qualification Section
+//         doc.setFontSize(10);
+//         doc.autoTable({
+//             head: [['Examination', 'Board', 'Subject', 'Grade', 'Year']],
+//             body: [
+//                 [examination1, board1, subject1, grade1, year1],
+//                 [examination2, board2, subject2, grade2, year2],
+//                 [examination3, board3, subject3, grade3, year3]
+//             ],
+//             startY: currentY + 10,
+//             theme: 'grid'
+//         });
+
+//         // Signature Section (Linear Layout)
+//         const signatureStartY = doc.lastAutoTable.finalY + 20;
+//         drawSignatureLine(doc, 'Guardian Signature and date:', 10, signatureStartY);
+//         drawSignatureLine(doc, 'Applicant Signature and date:', 80, signatureStartY);
+//         drawSignatureLine(doc, 'Institution Signature and date:', 150, signatureStartY);
+
+//         doc.save('admission_form.pdf');
+//     }
+
+//     // Function to draw a field with a box
+//     function drawFieldBox(doc, label, value, x, y, boxWidth) {
+//         const labelWidth = doc.getTextWidth(label) + 2;
+//         doc.setFillColor(240);
+//         doc.rect(x, y - 8, boxWidth, 10, 'F'); // box around the field
+//         doc.text(label, x + 1, y);
+//         doc.text(value, x + labelWidth + 5, y);
+//     }
+
+//     // Function to draw a signature line
+//     function drawSignatureLine(doc, label, x, y) {
+//         doc.setFontSize(10);
+//         doc.text(label, x, y + 10); // Move label below the line
+//         doc.line(x, y, x + 60, y); // Signature line
+//     }
+
+
+
+headerImg.onload = function () {
     if (photoFile) {
         const reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = function (e) {
             const imgData = e.target.result;
-            watermarkImg.onload = function() {
-                // Add the header image without margins
-                // doc.addImage(headerImg, 'PNG', 0, 0, 210, 50); // Full width (210 for A4)
-                doc.addImage(headerImg, 'PNG', 0, 0, 210, 52); // 60 is the original Y (0) plus the height of the image (50) plus the margin (10)
-                // Set global transparency (opacity) for the watermark image
-                doc.setGState(new doc.GState({ opacity: 0.04 })); // Adjust opacity (0 = fully transparent, 1 = fully opaque)
+            watermarkImg.onload = function () {
+                doc.addImage(headerImg, 'PNG', 0, 0, 210, 50); // Reduced header size
 
-                // Add the watermark image with the applied transparency
-                doc.addImage(watermarkImg, 'PNG', 10, 30, 190, 270);
+                // Add watermark image
+                doc.setGState(new doc.GState({ opacity: 0.04 }));
+                doc.addImage(watermarkImg, 'PNG', 10, 30, 190, 260); // Reduced watermark size
 
-                // Reset opacity back to default for other elements
                 doc.setGState(new doc.GState({ opacity: 1 }));
-
-                // Add the uploaded image (with border radius manually simulated)
-                const imgWithBorderRadius = new Image();
-                imgWithBorderRadius.src = imgData;
-                imgWithBorderRadius.style.borderRadius ="10px";
-                doc.addImage(imgData, 'JPEG', 175, 23, 30, 30);
-
-
-                
-
-                
+                doc.addImage(imgData, 'JPEG', 170, 23, 28, 28); // Reduced applicant image
 
                 generatePDF();
             };
         };
         reader.readAsDataURL(photoFile);
     } else {
-        watermarkImg.onload = function() {
-            // Add the header image without margins
-            doc.addImage(headerImg, 'PNG', 0, 0, 210, 47); // Full width (210 for A4)
-
-            // Set global transparency (opacity) for the watermark image
-            doc.setGState(new doc.GState({ opacity: 0.04 })); // Adjust opacity (0 = fully transparent, 1 = fully opaque)
-
-            // Add the watermark image with the applied transparency
-            doc.addImage(watermarkImg, 'PNG', 10, 30, 190, 270);
-
-            // Reset opacity back to default for other elements
-            doc.setGState(new doc.GState({ opacity: 1}));
+        watermarkImg.onload = function () {
+            doc.addImage(headerImg, 'PNG', 0, 0, 210, 50);
+            doc.setGState(new doc.GState({ opacity: 0.04 }));
+            doc.addImage(watermarkImg, 'PNG', 10, 30, 190, 260);
+            doc.setGState(new doc.GState({ opacity: 1 }));
 
             generatePDF();
         };
     }
 };
 
+function generatePDF() {
+    const startingY = 60; // Adjusted starting position
+    doc.setFontSize(9); // Reduced font size
+    doc.setTextColor(0, 0, 0);
+
+    const fieldHeight = 8; // Reduced field height
+    const fieldSpacing = 4; // Smaller spacing
+    let currentY = startingY;
+
+    // Date and Course
+    drawFieldBox(doc, 'Date:', date, 10, currentY, 80); // Reduced field size
+    drawFieldBox(doc, 'Course Name:', courseName, 100, currentY, 80);
+    currentY += fieldHeight + fieldSpacing;
+
+    drawFieldBox(doc, 'Course Duration:', courseDuration, 10, currentY, 80);
+    currentY += fieldHeight + fieldSpacing;
+
+    drawFieldBox(doc, 'Applicant Name(Bangla):', applicantNameBangla, 10, currentY, 80);
+    drawFieldBox(doc, 'Applicant Name(English):', applicantNameCapital, 100, currentY, 80);
+    currentY += fieldHeight + fieldSpacing;
+
+    drawFieldBox(doc, 'Father\'s Name(Bangla):', fatherName, 10, currentY, 80);
+    drawFieldBox(doc, 'Father\'s Name(English):', fatherNameCapital, 100, currentY, 80);
+    currentY += fieldHeight + fieldSpacing;
+
+    drawFieldBox(doc, 'Mother\'s Name(Bangla):', motherName, 10, currentY, 80);
+    drawFieldBox(doc, 'Mother\'s Name(English):', motherNameCapital, 100, currentY, 80);
+    currentY += fieldHeight + fieldSpacing;
+
+    // Addresses
+    drawFieldBox(doc, 'Permanent Address:', addressPermanent, 10, currentY, 170);
+    currentY += fieldHeight + fieldSpacing;
+
+    drawFieldBox(doc, 'Present Address:', addressPresent, 10, currentY, 170);
+    currentY += fieldHeight + fieldSpacing;
+
+    // Additional Information
+    drawFieldBox(doc, 'Date of Birth:', dob, 10, currentY, 80);
+    drawFieldBox(doc, 'Religion:', religion, 100, currentY, 80);
+    currentY += fieldHeight + fieldSpacing;
+
+    drawFieldBox(doc, 'Profession:', profession, 10, currentY, 80);
+    drawFieldBox(doc, 'Mobile:', mobile, 100, currentY, 80);
+    currentY += fieldHeight + fieldSpacing;
+
+    drawFieldBox(doc, 'Email:', email, 10, currentY, 80);
+    drawFieldBox(doc, 'Alt Mobile:', altMobile, 100, currentY, 80);
+    currentY += fieldHeight + fieldSpacing;
+
+    drawFieldBox(doc, 'Village:', village, 10, currentY, 80);
+    drawFieldBox(doc, 'P/O:', po, 100, currentY, 80);
+    currentY += fieldHeight + fieldSpacing;
+
+    drawFieldBox(doc, 'Upazilla:', upazilla, 10, currentY, 80);
+    drawFieldBox(doc, 'District:', district, 100, currentY, 80);
+    currentY += fieldHeight + fieldSpacing;
+
+    drawFieldBox(doc, 'Nationality:', nationality, 10, currentY, 80);
+    currentY += fieldHeight + fieldSpacing;
+
+    // Educational Qualification Section
+    doc.setFontSize(8); // Reduced font size for the table
+    doc.autoTable({
+        head: [['Examination', 'Board', 'Subject', 'Grade', 'Year']],
+        body: [
+            [examination1, board1, subject1, grade1, year1],
+            [examination2, board2, subject2, grade2, year2],
+            [examination3, board3, subject3, grade3, year3]
+        ],
+        startY: currentY + 5, // Reduced space before the table
+        theme: 'grid',
+        styles: { cellPadding: 1, fontSize: 8 }, // Further reduced table size
+    });
+
+    // Signature Section
+    const signatureStartY = doc.lastAutoTable.finalY + 10; // Reduced space for signatures
+    drawSignatureLine(doc, 'Guardian Signature and date:', 10, signatureStartY);
+    drawSignatureLine(doc, 'Applicant Signature and date:', 75, signatureStartY);
+    drawSignatureLine(doc, 'Institution Signature and date:', 140, signatureStartY);
+
+    doc.save('admission_form.pdf');
+}
+
+// Function to draw a field with a box
+function drawFieldBox(doc, label, value, x, y, boxWidth) {
+    const labelWidth = doc.getTextWidth(label) + 2;
+    doc.setFillColor(240);
+    doc.rect(x, y - 6, boxWidth, 8, 'F'); // Reduced field box height
+    doc.text(label, x + 1, y);
+    doc.text(value, x + labelWidth + 4, y);
+}
+
+// Function to draw a signature line
+function drawSignatureLine(doc, label, x, y) {
+    doc.setFontSize(8); // Reduced font size for signatures
+    doc.text(label, x, y + 8); // Reduced line height
+    doc.line(x, y, x + 60, y); // Signature line
+}
 
 
-    function generatePDF() {
-        const startingY = 63;
-
-        doc.setFontSize(12);
-        doc.setTextColor(0, 0, 0);
-
-        const fieldHeight = 12;
-        const fieldSpacing = 6;
-        let currentY = startingY;
-
-        // Date and Course
-        drawFieldBox(doc, 'Date:', date, 10, currentY, 90);
-        drawFieldBox(doc, 'Course Name:', courseName, 110, currentY, 90);
-        currentY += fieldHeight + fieldSpacing;
-        drawFieldBox(doc, 'Course Duration:', courseDuration, 10, currentY, 90);
-        currentY += fieldHeight + fieldSpacing;
-
-        
-        drawFieldBox(doc, 'Applicant Name(Bangla.):', applicantNameBangla, 10, currentY, 90);
-        drawFieldBox(doc, 'Applicant Name(English):', applicantNameCapital, 110, currentY, 90);
-        currentY += fieldHeight + fieldSpacing;
-        drawFieldBox(doc, 'Father\'s Name(Bangla):', fatherName, 10, currentY, 90);
-        drawFieldBox(doc, 'Father\'s Name(English):', fatherNameCapital, 110, currentY, 90);
-        currentY += fieldHeight + fieldSpacing;
-        drawFieldBox(doc, 'Mother\'s Name(Bangla):', motherName, 10, currentY, 90);
-        drawFieldBox(doc, 'Mother\'s Name(English):', motherNameCapital, 110, currentY, 90);
-        currentY += fieldHeight + fieldSpacing;
-
-
-
-
-
-        // Addresses
-        drawFieldBox(doc, 'Permanent Address:', addressPermanent, 10, currentY, 190);
-        currentY += fieldHeight + fieldSpacing;
-        drawFieldBox(doc, 'Present Address:', addressPresent, 10, currentY, 190);
-        currentY += fieldHeight + fieldSpacing;
-
-        // Additional Information
-        drawFieldBox(doc, 'Date of Birth:', dob, 10, currentY, 90);
-        drawFieldBox(doc, 'Religion:', religion, 110, currentY, 90);
-        currentY += fieldHeight + fieldSpacing;
-        drawFieldBox(doc, 'Profession:', profession, 10, currentY, 90);
-        drawFieldBox(doc, 'Mobile:', mobile, 110, currentY, 90);
-        currentY += fieldHeight + fieldSpacing;
-        drawFieldBox(doc, 'Email:', email, 10, currentY, 90);
-        drawFieldBox(doc, 'Alt Mobile:', altMobile, 110, currentY, 90);
-        currentY += fieldHeight + fieldSpacing;
-        drawFieldBox(doc, 'Village:', village, 10, currentY, 90);
-        drawFieldBox(doc, 'P/O:', po, 110, currentY, 90);
-        currentY += fieldHeight + fieldSpacing;
-        drawFieldBox(doc, 'Upazilla:', upazilla, 10, currentY, 90);
-        drawFieldBox(doc, 'District:', district, 110, currentY, 90);
-        currentY += fieldHeight + fieldSpacing;
-        drawFieldBox(doc, 'Nationality:', nationality, 10, currentY, 90);
-        currentY += fieldHeight + fieldSpacing;
-
-        // Educational Qualification Section
-        doc.setFontSize(10);
-        doc.autoTable({
-            head: [['Examination', 'Board', 'Subject', 'Grade', 'Year']],
-            body: [
-                [examination1, board1, subject1, grade1, year1],
-                [examination2, board2, subject2, grade2, year2],
-                [examination3, board3, subject3, grade3, year3]
-            ],
-            startY: currentY + 10,
-            theme: 'grid'
-        });
-
-        // Signature Section (Linear Layout)
-        const signatureStartY = doc.lastAutoTable.finalY + 20;
-        drawSignatureLine(doc, 'Guardian Signature and date:', 10, signatureStartY);
-        drawSignatureLine(doc, 'Applicant Signature and date:', 80, signatureStartY);
-        drawSignatureLine(doc, 'Institution Signature and date:', 150, signatureStartY);
-
-        doc.save('admission_form.pdf');
-    }
-
-    // Function to draw a field with a box
-    function drawFieldBox(doc, label, value, x, y, boxWidth) {
-        const labelWidth = doc.getTextWidth(label) + 2;
-        doc.setFillColor(240);
-        doc.rect(x, y - 8, boxWidth, 10, 'F'); // box around the field
-        doc.text(label, x + 1, y);
-        doc.text(value, x + labelWidth + 5, y);
-    }
-
-    // Function to draw a signature line
-    function drawSignatureLine(doc, label, x, y) {
-        doc.setFontSize(10);
-        doc.text(label, x, y + 10); // Move label below the line
-        doc.line(x, y, x + 60, y); // Signature line
-    }
-});
+ });
 
 
 
